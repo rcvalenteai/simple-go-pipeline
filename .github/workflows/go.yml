@@ -42,6 +42,8 @@ jobs:
         aws_access_key_id: ${{ secrets.AWS_SECRET_KEY_ID }}
         # AWS SECRET KEY
         aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        # FUNCTION NAME
+        function_name: simple-go-pipeline
         # FILE
         zip_file: 'main.zip'
 

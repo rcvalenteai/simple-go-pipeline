@@ -30,8 +30,10 @@ jobs:
     - name: Test
       run: go test
 
-    - name: Echo
-      run: echo 'Done!'
+  test:
+    name: Echo
+    runs-on: ubuntu-latest
+    run: echo 'Done2!'
 
 #  test:
 #    name: Test

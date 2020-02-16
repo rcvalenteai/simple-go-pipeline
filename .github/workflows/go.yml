@@ -45,8 +45,7 @@ jobs:
         # FUNCTION NAME
         function_name: simple-go-pipeline
         # FILE
-        zip_file: 'main.zip'
-        dry_run: true
+        zip_file: main.zip
 
 #  test:
 #    name: Echo

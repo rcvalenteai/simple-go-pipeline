@@ -27,13 +27,16 @@ jobs:
     - name: Build
       run: go build -v .
 
-  test:
-    name: Test
-    runs-on: ubuntu-latest
-    steps:
+    - name: Test
+      run: go test
 
-      - name: Test
-        run: go test
+#  test:
+#    name: Test
+#    runs-on: ubuntu-latest
+#    steps:
+#
+#      - name: Test
+#        run: go test
 
 #  test:
 #    name: Tests

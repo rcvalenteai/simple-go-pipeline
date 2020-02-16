@@ -36,13 +36,13 @@ func TestMultiply(t *testing.T) {
 		{1, 1, 1},
 		{-1, -1, 1},
 		{0, 5, 0},
-		{3, 5, 0},
+		{3, 5, 15},
 	}
 
 	for _, table := range tables {
 		total := multiply(table.a, table.b)
 		if total != table.answer {
-			t.Errorf("Sum of (%d+%d) was incorrect, got %d want: %d", table.a, table.b, total, table.answer)
+			t.Errorf("Multiplication of (%d+%d) was incorrect, got %d want: %d", table.a, table.b, total, table.answer)
 		}
 	}
 }

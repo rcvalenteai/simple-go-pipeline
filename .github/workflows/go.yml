@@ -30,13 +30,28 @@ jobs:
     - name: Test
       run: go test
 
-  test:
-    name: Echo
-    runs-on: ubuntu-latest
-    steps:
+    - name: Zipping
+      run: zip main.zip main
 
-      - name: test echo
-        run: echo 'Done2!'
+    - name: AWS Lambda Deploy
+      uses: appleboy/lambda-action@v0.0.2
+      with:
+        # AWS Region
+        aws_region: ${{ secrets.AWS_REGION }}
+        # AWS ACCESS KEY
+        aws_access_key_id: ${{ secrets.AWS_SECRET_KEY_ID }}
+        # AWS SECRET KEY
+        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        # FILE
+        zip_file: 'main.zip'
+
+#  test:
+#    name: Echo
+#    runs-on: ubuntu-latest
+#    steps:
+#
+#      - name: test echo
+#        run: echo 'Done2!'
 
 #  test:
 #    name: Test

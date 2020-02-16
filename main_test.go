@@ -2,7 +2,7 @@ package main
 
 import "testing"
 
-func testSum(t *testing.T) {
+func TestSum(t *testing.T) {
 	tables := []struct {
 		a      int
 		b      int

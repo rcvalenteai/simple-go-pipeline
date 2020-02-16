@@ -1,5 +1,5 @@
 language: go
 os:
-  - windows
+  - linux
 go:
   - 1.x

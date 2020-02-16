@@ -1,8 +1,12 @@
 package main
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestSum(t *testing.T) {
+	fmt.Printf("Testing Addition Function")
 	tables := []struct {
 		a      int
 		b      int

@@ -8,13 +8,17 @@ import (
 
 func add(a int, b int) int {
 	c := a + b
-	fmt.Println(c)
+	return c
+}
+
+func multiply(a int, b int) int {
+	c := a * b
 	return c
 }
 
 type Request struct {
-	A int `json:"id"`
-	B int `json:"value"`
+	A int `json:"a"`
+	B int `json:"b"`
 }
 
 type Response struct {
@@ -26,9 +30,9 @@ type Response struct {
 func Handler(request Request) (Response, error) {
 	fmt.Println(time.Now())
 	return Response{
-		Message: fmt.Sprintf("Adding Values %d and %d", request.A, request.B),
+		Message: fmt.Sprintf("Multiplying Values %d and %d", request.A, request.B),
 		Ok:      true,
-		Value:   add(request.A, request.B)}, nil
+		Value:   multiply(request.A, request.B)}, nil
 }
 
 func main() {

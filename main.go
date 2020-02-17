@@ -17,8 +17,8 @@ func multiply(a int, b int) int {
 }
 
 type Request struct {
-	A int `json:"a"`
-	B int `json:"b"`
+	A int `json:"body.a"`
+	B int `json:"body.b"`
 }
 
 type Response struct {

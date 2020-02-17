@@ -46,28 +46,3 @@ jobs:
         function_name: simple-go-pipeline
         # FILE
         zip_file: main.zip
-
-#  test:
-#    name: Echo
-#    runs-on: ubuntu-latest
-#    steps:
-#
-#      - name: test echo
-#        run: echo 'Done2!'
-
-#  test:
-#    name: Test
-#    runs-on: ubuntu-latest
-#    steps:
-#
-#      - name: Test
-#        run: go test
-
-#  test:
-#    name: Tests
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@master
-#      - name: Test
-#        uses: skx/github-action-tester@master
-

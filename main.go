@@ -42,7 +42,13 @@ type Response struct {
 func show(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 	a, err := strconv.Atoi(req.QueryStringParameters["a"])
 	b, err := strconv.Atoi(req.QueryStringParameters["b"])
-	fmt.Println(req.Body)
+
+	var experiment Experiment
+	err = json.Unmarshal([]byte(req.Body), &experiment)
+	if err != nil {
+		fmt.Printf("error unmarshalling json body")
+	}
+	sendMongo(experiment)
 	if err != nil {
 		return serverError(err)
 	}
@@ -54,7 +60,6 @@ func show(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, er
 }
 
 func getResponse(a int, b int) Response {
-	sendMongo()
 	return Response{
 		Message: fmt.Sprintf("Multiplying Values %d and %d", a, b),
 		Ok:      true,
@@ -79,13 +84,54 @@ func Handler(request Request) (Response, error) {
 		Value:   multiply(request.A, request.B)}, nil
 }
 
-type Person struct {
-	Name string
-	Age  int
-	City string
+//type Experiment struct {
+//	Trials	[]Trial
+//	timestamp	int64
+//}
+//
+//type Trial struct {
+//	ChartType	Chart
+//	randomValues	[]float64
+//	testIndices		[]int
+//	realPercentage	int
+//	guessedPercentage int
+//}
+//
+//type Chart struct {
+//	chartType	string
+//}
+//
+//type Person struct {
+//	Name string
+//	Age  int
+//	City string
+//}
+
+type Experiment struct {
+	Charts []struct {
+		ChartType string `json:"chartType"`
+	} `json:"charts"`
+	TrialsPerChart int `json:"trialsPerChart"`
+	Image          struct {
+		Groups [][]struct {
+		} `json:"_groups"`
+		Parents []struct {
+		} `json:"_parents"`
+	} `json:"image"`
+	TrialCount int `json:"trialCount"`
+	Trials     []struct {
+		Chart struct {
+			ChartType string `json:"chartType"`
+		} `json:"chart"`
+		RandomValues      []float64 `json:"randomValues"`
+		TestIndices       []int     `json:"testIndices"`
+		RealPercentage    int       `json:"realPercentage"`
+		GuessedPercentage int       `json:"guessedPercentage"`
+	} `json:"trials"`
+	Timestamp int64 `json:"timestamp"`
 }
 
-func sendMongo() {
+func sendMongo(experiment Experiment) {
 	password := os.Getenv("MONGO_PASS")
 	url := "mongodb+srv://bigdatamanagement:" + password + "@mongosandbox-qzmsu.mongodb.net/test?retryWrites=true&w=majority"
 	clientOptions := options.Client().ApplyURI(url)
@@ -102,8 +148,7 @@ func sendMongo() {
 	}
 
 	collection := client.Database("projectfour").Collection("datavisthree")
-	ruan := Person{"Ruan", 34, "Cape Town"}
-	insertResult, err := collection.InsertOne(context.TODO(), ruan)
+	insertResult, err := collection.InsertOne(context.TODO(), experiment)
 	if err != nil {
 		log.Fatal(err)
 	}

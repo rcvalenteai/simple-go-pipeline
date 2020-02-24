@@ -42,7 +42,6 @@ type Response struct {
 func show(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 	a, err := strconv.Atoi(req.QueryStringParameters["a"])
 	b, err := strconv.Atoi(req.QueryStringParameters["b"])
-
 	var experiment Experiment
 	err = json.Unmarshal([]byte(req.Body), &experiment)
 	if err != nil {
@@ -125,7 +124,7 @@ type Experiment struct {
 		} `json:"chart"`
 		RandomValues      []float64 `json:"randomValues"`
 		TestIndices       []int     `json:"testIndices"`
-		RealPercentage    int       `json:"realPercentage"`
+		RealPercentage    float64   `json:"realPercentage"`
 		GuessedPercentage int       `json:"guessedPercentage"`
 	} `json:"trials"`
 	Timestamp int64 `json:"timestamp"`

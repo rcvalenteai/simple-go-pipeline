@@ -51,10 +51,13 @@ func show(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, er
 	if err != nil {
 		return serverError(err)
 	}
+
+	headers := map[string]string{"Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"}
 	js, err := json.Marshal(getResponse(a, b))
 	return events.APIGatewayProxyResponse{
 		StatusCode: http.StatusOK,
 		Body:       string(js),
+		Headers:    headers,
 	}, nil
 }
 

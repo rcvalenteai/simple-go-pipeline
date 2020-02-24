@@ -39,6 +39,7 @@ type Response struct {
 func show(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 	a, err := strconv.Atoi(req.QueryStringParameters["a"])
 	b, err := strconv.Atoi(req.QueryStringParameters["b"])
+	fmt.Println(req.Body)
 	if err != nil {
 		return serverError(err)
 	}
